@@ -27,7 +27,7 @@ class MainController extends Controller
      */
     public function authPartner(Request $request){
         $client = new Client();
-        $query = $client->post('https://payquick-develop.herokuapp.com/api/v1/customer/auth/signin', [
+        $query = $client->post('http://localhost:3000/api/v1/customer/auth/signin', [
             'form_params'=>[
                 'email'=>$request->email,
                 'password'=>$request->password
@@ -114,5 +114,10 @@ class MainController extends Controller
     public function agences(){
 
         return view('admin.agences');
+    }
+
+    public function users(){
+
+        return view('admin.users');
     }
 }

@@ -36,11 +36,11 @@
 @include('flash-message')
 <form class="form-signin" action="{{url('/auth')}}" method="post">
     {{csrf_field()}}
-    <img class="mb-4" src="{{url('assets/img/pq.png')}}" alt="">
+    <img class="mb-4" src="{{url('assets/img/logo_1_0.png')}}" alt="">
     <h1 class="h3 mb-3 font-weight-normal">Identifiez-vous</h1>
     <br>
-    <label for="inputEmail" class="sr-only">Numero de téléphone</label>
-    <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Nunémro de téléphone" required="true" autofocus="true">
+    <label for="inputEmail" class="sr-only">Adresse email</label>
+    <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Adresse email" required="true" autofocus="true">
     <br><br>
     <label for="inputPassword" class="sr-only">Mot de passe</label>
     <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required="">

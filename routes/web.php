@@ -73,3 +73,8 @@ Route::get('/partner/admin', array(
 Route::get('/partner/admin/agences', array(
     'as'=>'agences',
     'uses'=>'MainController@agences'));
+
+//gestion des parametres
+Route::get('/partner/admin/users', array(
+    'as'=>'users',
+    'uses'=>'MainController@users'));

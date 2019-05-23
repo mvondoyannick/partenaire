@@ -6,7 +6,7 @@
     </a>
 </li>
 <li class="active-pro">
-    <a href="{{url('/user/parameters')}}">
+    <a href="{{route('users')}}">
         <i class="pe-7s-users"></i>
         <p>Gestion utilisateurs</p>
     </a>
@@ -30,7 +30,7 @@
     </a>
 </li>
 <li class="active-pro">
-    <a href="{{url('/user/parameters')}}">
+    <a href="{{route('admin')}}">
         <i class="pe-7s-edit"></i>
         <p>Parametres</p>
     </a>
