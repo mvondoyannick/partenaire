@@ -27,7 +27,7 @@ class MainController extends Controller
      */
     public function authPartner(Request $request){
         $client = new Client();
-        $query = $client->post('http://localhost:3000/api/v1/customer/auth/signin', [
+        $query = $client->post('http://localhost:3000/api/v1/customer/patner/signin', [
             'form_params'=>[
                 'email'=>$request->email,
                 'password'=>$request->password
@@ -36,8 +36,8 @@ class MainController extends Controller
         $response = $query->getBody()->getContents();
         $data = json_decode($response);
         if ($data->status == true){
-            session(['authentication_token'=>$data->message->authentication]);
-            session(['phone'=>$data->message->phone]);
+            session(['authentication_token'=>$data->message->authentication_token]);
+            session(['phone'=>$data->message->role_id]);
             session(['name'=>$data->message->name]);
             session(['prenom'=>$data->message->prenom]);
             session(['email'=>$data->message->email]);
@@ -59,10 +59,48 @@ class MainController extends Controller
 
     }
 
+    public function customerCreate(Request $request){
+        $client = new Client();
+        $query = $client->post('http://localhost:3000/api/v1/customer/patner/customer/new', [
+            'form_params'=>[
+                'name'=>$request->name,
+                'second_name'=>$request->second_name,
+                'cni'=>$request->cni,
+                'phone'=>$request->phone,
+                'adresse'=>$request->adresse,
+                'sexe'=>$request->sexe
+            ]
+        ]);
+        $result = $query->getBody()->getContents();
+        $data = json_decode($result);
+        if ($data->status == true){
+            return redirect()->action('MainController@newCustomer')->with('success', 'Utilisateur cree avec success');
+        }else {
+            return view('main.new')->with('error', 'Impossible de creer cet utilisateur');
+        }
+    }
+
     public function credit(){
 
         return view('main.credit');
 
+    }
+
+    public function creditGo(Request $request){
+        $client = new Client();
+        $query = $client->post('http://localhost:3000/api/v1/customer/patner/customer/credit', [
+            'form_params'=>[
+                'phone'=>$request->phone,
+                'amount'=>$request->amount
+            ]
+        ]);
+        $result = $query->getBody()->getContents();
+        $data = json_decode($result);
+        if ($data->status == true){
+            return redirect()->action('MainController@credit')->with('success', 'Utilisateur '.$request->phone.' vient d etre credité de '.$request->amount.' F CFA');
+        }else {
+            return view('main.credit')->with('error', 'Impossible de crediter ce compte');
+        }
     }
 
     public function debit(){
@@ -71,10 +109,62 @@ class MainController extends Controller
 
     }
 
+    public function debitGo(Request $request){
+        $client = new Client();
+        $query = $client->post('http://localhost:3000/api/v1/customer/patner/debit', [
+            'form_params'=>[
+                'phone'=>$request->phone,
+                'amount'=>$request->amount
+            ]
+        ]);
+        $result = $query->getBody()->getContents();
+        $data = json_decode($result);
+        if ($data->status == true){
+            return redirect()->action('MainController@debit')->with('success', 'Utilisateur '.$request->phone.' vient d etre debité de '.$request->amount.' F CFA');
+        }else {
+            return view('main.debit')->with('error', 'Impossible de debiter ce compte');
+        }
+    }
+
     public function activer(){
 
         return view('main.activer');
 
+    }
+
+    public function activer_step_2(Request $request){
+        $client = new Client();
+        $query = $client->post('http://localhost:3000/api/v1/customer/patner/activer/search', [
+            'form_params'=>[
+                'phone'=>$request->phone
+            ]
+        ]);
+        $result = $query->getBody()->getContents();
+        $data = json_decode($result);
+        if ($data->status == true){
+            return redirect()->action('MainController@activer_step_2')->with('data', $data->message);
+        }else {
+            return view('main.activer')->with('error', 'Impossible de trouver ce numero');
+        }
+
+    }
+
+    public function activerGo(Request $request){
+        $client = new Client();
+        $query = $client->post('http://localhost:3000/api/v1/customer/partner/activate/validate', [
+            'form_params'=>[
+                'phone'=>$request->phone,
+                'authentication_token'=>$request->authentication_token,
+                'motif'=>$request->motif
+            ]
+        ]);
+        $result = $query->getBody()->getContents();
+        $data = json_decode($result);
+        if ($data->status == true){
+            return redirect()->action('MainController@activer')->with('success', "Le compte ".$request->phone." a été correctement activé.");
+        }else {
+            view('main.activer')->with('error', 'Impossible d activer ce compte.');
+        }
     }
 
     public function bloquer(){
@@ -95,9 +185,13 @@ class MainController extends Controller
 
     }
 
-    public function logs(){
+    public function logs(Request $request){
+        $client = new Client();
+        $query = $client->get('http://localhost:3000/api/v1/customer/partner/journal');
+        $response = $query->getBody()->getContents();
+        $data = json_decode($response);
 
-        return view('main.journal');
+        return view('main.journal')->with(['data'=>$data->message]);
 
     }
 

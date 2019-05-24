@@ -23,21 +23,47 @@ Route::get('/partner', array(
 Route::get('/partner/account/new', array(
     'as'=>'new',
     'uses'=>'MainController@newCustomer'));
+//creation effective
+Route::post('/partner/account/new/create', array(
+    'as' => 'create',
+    'uses'=> 'MainController@customerCreate'
+));
 
 //credit user
 Route::get('/partner/account/credit', array(
     'as'=>'credit',
     'uses'=>'MainController@credit'));
 
+//credation affectif du compte client
+Route::post('/partner/account/credit/go', array(
+    'as'=>'creditGo',
+    'uses'=>'MainController@creditGo'
+));
+
 //debit user
 Route::get('/partner/account/debit', array(
     'as'=>'debit',
     'uses'=>'MainController@debit'));
 
+//debit affectif du compte client
+Route::post('/partner/account/debit/go', array(
+    'as'=>'debitGo',
+    'uses'=>'MainController@debitGo'
+));
+
 //activate an account
 Route::get('/partner/account/activate', array(
     'as'=>'activate',
     'uses'=>'MainController@activer'));
+
+Route::get('/partner/account/activate/step_2/', array(
+    'as'=>'activate_2',
+    'uses'=>'MainController@activer_step_2'));
+
+Route::post('/partner/account/activate/go', array(
+    'as'=>'activerGo',
+    'uses'=>'MainController@activerGo'
+));
 
 //lock user account
 Route::get('/partner/account/lock', array(

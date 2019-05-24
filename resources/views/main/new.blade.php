@@ -4,7 +4,8 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <form action="">
+                <form action="{{route('create')}}" method="post">
+                    {{csrf_field()}}
                 <div class="col-md-6">
                     <div class="card">
                         <div class="header">
@@ -42,10 +43,19 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Adresse</label>
-                                            <input type="text" class="form-control" placeholder="Home Address" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09">
+                                            <input type="text" name="adresse" class="form-control" placeholder="Adresse">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Sexe</label>
+                                            <select name="sexe" id="" class="form-control">
+                                                <option value="masculin">Masculin</option>
+                                                <option value="feminin">Féminin</option>
+                                            </select>
                                         </div>
                                     </div>
 
