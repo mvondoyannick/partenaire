@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="{{url('assets/img/favicon.ico')}}">
+    <link rel="icon" type="image/png" href="{{url('assets/img/favicon.png')}}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
     <title>{{config('app.name')}}</title>
@@ -41,7 +41,7 @@
         <div class="sidebar-wrapper">
             <div class="logo">
                 <a href="#" class="simple-text">
-                    PayQuick
+                    <img src="{{url('assets/img/logo_white.png')}}" height="100" />
                 </a>
             </div>
 
