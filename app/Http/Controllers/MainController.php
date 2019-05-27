@@ -27,7 +27,7 @@ class MainController extends Controller
      */
     public function authPartner(Request $request){
         $client = new Client();
-        $query = $client->post('http://partenairequick.herokuapp.com/api/v1/customer/patner/signin', [
+        $query = $client->post('http://localhost:3000/api/v1/customer/patner/signin', [
             'form_params'=>[
                 'email'=>$request->email,
                 'password'=>$request->password
@@ -61,7 +61,7 @@ class MainController extends Controller
 
     public function customerCreate(Request $request){
         $client = new Client();
-        $query = $client->post('https://payequick.herokuapp.com/api/v1/customer/patner/customer/new', [
+        $query = $client->post('http://localhost:3000/api/v1/customer/patner/customer/new', [
             'form_params'=>[
                 'name'=>$request->name,
                 'second_name'=>$request->second_name,
